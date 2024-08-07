@@ -82,5 +82,64 @@ namespace TESTE_GUNA.projeto.window
         {
 
         }
+
+        private void txtQtd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir somente números, backspace e vírgula
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back || e.KeyChar == ',')
+            {
+                // Permitir apenas uma vírgula no texto
+                if (e.KeyChar == ',')
+                {
+                    // Verificar se já existe uma vírgula no texto atual
+                    TextBox textBox = sender as TextBox;
+                    if (textBox != null && textBox.Text.Contains(','))
+                    {
+                        e.Handled = true; // Bloquear a entrada se já houver uma vírgula
+                    }
+                }
+            }
+            else
+            {
+                e.Handled = true; // Bloquear a entrada de outros caracteres
+            }
+        }
+
+        private void txtPreco_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir somente números, backspace e vírgula
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back || e.KeyChar == ',')
+            {
+                // Permitir apenas uma vírgula no texto
+                if (e.KeyChar == ',')
+                {
+                    // Verificar se já existe uma vírgula no texto atual
+                    TextBox textBox = sender as TextBox;
+                    if (textBox != null && textBox.Text.Contains(','))
+                    {
+                        e.Handled = true; // Bloquear a entrada se já houver uma vírgula
+                    }
+                }
+            }
+            else
+            {
+                e.Handled = true; // Bloquear a entrada de outros caracteres
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPreco_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AdmTelaEditarProduto_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

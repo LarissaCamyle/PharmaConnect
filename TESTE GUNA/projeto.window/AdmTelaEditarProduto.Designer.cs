@@ -79,12 +79,13 @@
             this.txtQtd.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtQtd.Name = "txtQtd";
             this.txtQtd.PasswordChar = '\0';
-            this.txtQtd.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtQtd.PlaceholderText = "";
+            this.txtQtd.PlaceholderForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.txtQtd.PlaceholderText = "Quantidade no estoque";
             this.txtQtd.SelectedText = "";
             this.txtQtd.Size = new System.Drawing.Size(391, 40);
             this.txtQtd.TabIndex = 131;
             this.txtQtd.TextChanged += new System.EventHandler(this.guna2TextBox1_TextChanged);
+            this.txtQtd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQtd_KeyPress);
             // 
             // label4
             // 
@@ -120,8 +121,8 @@
             this.txtDescricao.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtDescricao.Name = "txtDescricao";
             this.txtDescricao.PasswordChar = '\0';
-            this.txtDescricao.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtDescricao.PlaceholderText = "";
+            this.txtDescricao.PlaceholderForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.txtDescricao.PlaceholderText = "Descrição";
             this.txtDescricao.SelectedText = "";
             this.txtDescricao.Size = new System.Drawing.Size(391, 40);
             this.txtDescricao.TabIndex = 129;
@@ -160,11 +161,13 @@
             this.txtPreco.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.PasswordChar = '\0';
-            this.txtPreco.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtPreco.PlaceholderText = "";
+            this.txtPreco.PlaceholderForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.txtPreco.PlaceholderText = "Preço (Exemplo = 12,49)";
             this.txtPreco.SelectedText = "";
             this.txtPreco.Size = new System.Drawing.Size(391, 40);
             this.txtPreco.TabIndex = 127;
+            this.txtPreco.TextChanged += new System.EventHandler(this.txtPreco_TextChanged);
+            this.txtPreco.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreco_KeyPress);
             // 
             // label2
             // 
@@ -178,6 +181,7 @@
             this.label2.Size = new System.Drawing.Size(74, 30);
             this.label2.TabIndex = 126;
             this.label2.Text = "Preço:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtNome
             // 
@@ -200,8 +204,8 @@
             this.txtNome.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtNome.Name = "txtNome";
             this.txtNome.PasswordChar = '\0';
-            this.txtNome.PlaceholderForeColor = System.Drawing.Color.Black;
-            this.txtNome.PlaceholderText = "";
+            this.txtNome.PlaceholderForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.txtNome.PlaceholderText = "Nome";
             this.txtNome.SelectedText = "";
             this.txtNome.Size = new System.Drawing.Size(391, 40);
             this.txtNome.TabIndex = 123;
@@ -303,6 +307,7 @@
             this.Name = "AdmTelaEditarProduto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdmTelaEditarProduto";
+            this.Load += new System.EventHandler(this.AdmTelaEditarProduto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

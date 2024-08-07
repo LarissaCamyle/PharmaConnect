@@ -75,6 +75,23 @@ namespace TESTE_GUNA.projeto.window
         {
             //button fechar a tela de pagamento
             this.Close();
+            FecharTodasInstancias();
+        }
+
+        public static List<TelaMessageBox> _instanciasAbertas = new List<TelaMessageBox>();
+
+        public static void AdicionarInstancia(TelaMessageBox instancia)
+        {
+            _instanciasAbertas.Add(instancia);
+        }
+
+        public static void FecharTodasInstancias()
+        {
+            foreach (var instancia in _instanciasAbertas.ToList())
+            {
+                instancia.Close();
+            }
+            _instanciasAbertas.Clear();
         }
 
         private void btnNao_Click_1(object sender, EventArgs e)
@@ -82,6 +99,7 @@ namespace TESTE_GUNA.projeto.window
             //se o button foi clicado
             btnNaoClick = true;
             this.Close();
+            FecharTodasInstancias();
         }
     }
 }

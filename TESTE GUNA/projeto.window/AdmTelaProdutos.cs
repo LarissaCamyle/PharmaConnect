@@ -169,40 +169,81 @@ namespace TESTE_GUNA.projeto.window
             }
         }
 
+
         public static int idProduto;
         private void DataGridViewProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && DataGridViewProdutos.Columns[e.ColumnIndex].Name == "Excluir")
+            if (e.RowIndex >= 0 && e.RowIndex < DataGridViewProdutos.Rows.Count &&
+                 e.ColumnIndex >= 0 && e.ColumnIndex < DataGridViewProdutos.Columns.Count)
             {
-                // Obtém o id do produto a partir da linha selecionada
-                idProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["ID"].Value);
+                // Verificar o nome da coluna clicada
+                string columnName = DataGridViewProdutos.Columns[e.ColumnIndex].Name;
 
-                // Remove a linha do DataGridView
-                DataGridViewProdutos.Rows.RemoveAt(e.RowIndex);
+                if (columnName == "Excluir")
+                {
+                    TelaMessageBox messageBox = new TelaMessageBox();
+                    messageBox.RetornaSimNao("DESEJA EXCLUIR O PRODUTO?");
+                    messageBox.ShowDialog();
 
-                // Remove a linha do banco de dados
-                ProdutoDAO dao = new ProdutoDAO();
-                dao.excluirProduto(idProduto);
+                    int qtd_estoque, qtdComprada, estoqueAtualizado;
 
-                //MessageBox.Show("Produto excluído com sucesso.");
-                ProdutoDAO d = new ProdutoDAO();
-                DataGridViewProdutos.DataSource = d.ListarProdutos();
+                    if (messageBox.btnSimClick == true)
+                    {
+                        // Obtém o id do produto a partir da linha selecionada
+                        idProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["ID"].Value);
+
+                        // Remove a linha do DataGridView
+                        DataGridViewProdutos.Rows.RemoveAt(e.RowIndex);
+
+                        // Remove a linha do banco de dados
+                        ProdutoDAO dao = new ProdutoDAO();
+                        dao.excluirProduto(idProduto);
+
+                        //MessageBox.Show("Produto excluído com sucesso.");
+                        ProdutoDAO d = new ProdutoDAO();
+                        DataGridViewProdutos.DataSource = d.ListarProdutos();
+
+
+
+                        TelaMessageBoxSucess mensagem = new TelaMessageBoxSucess();
+                        mensagem.Mensagem("PRODUTO EXCLUÍDO COM SUCESSO!");
+                        mensagem.ShowDialog();
+
+                        AdmTelaProdutos telaProdutos = new AdmTelaProdutos(this.admHome);
+                        this.admHome.PrintarTela(telaProdutos);
+
+                    }
+                    else if (messageBox.btnNaoClick == true)
+                    {
+                        TelaMessageBox.FecharTodasInstancias();
+                        messageBox.Close();
+                    }
+                    else
+                    {
+                        messageBox.Close();
+
+                    }
+
+
+                }
+
+                else if (columnName == "Editar")
+                {
+                    if (DataGridViewProdutos.Columns[e.ColumnIndex].Name == "Editar")
+                    {
+                        // Obtém o id do produto a partir da linha selecionada
+                        idProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["ID"].Value);
+                        string nomeProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Nome"].Value.ToString();
+                        string descricaoProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Descrição"].Value.ToString();
+                        decimal precoProduto = Convert.ToDecimal(DataGridViewProdutos.Rows[e.RowIndex].Cells["Preço"].Value);
+                        int quantidadeProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["Quantidade"].Value);
+                        string departamentoProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Departamento"].Value.ToString();
+
+                        AbrirTelaEdicao(idProduto, nomeProduto, descricaoProduto, precoProduto, quantidadeProduto, departamentoProduto);
+
+                    }
+                }
             }
-            if (e.RowIndex >= 0 && DataGridViewProdutos.Columns[e.ColumnIndex].Name == "Editar")
-            {
-                // Obtém o id do produto a partir da linha selecionada
-                idProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["ID"].Value);
-                string nomeProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Nome"].Value.ToString();
-                string descricaoProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Descrição"].Value.ToString();
-                decimal precoProduto = Convert.ToDecimal(DataGridViewProdutos.Rows[e.RowIndex].Cells["Preço"].Value);
-                int quantidadeProduto = Convert.ToInt32(DataGridViewProdutos.Rows[e.RowIndex].Cells["Quantidade"].Value);
-                string departamentoProduto = DataGridViewProdutos.Rows[e.RowIndex].Cells["Departamento"].Value.ToString();
-
-                AbrirTelaEdicao(idProduto, nomeProduto, descricaoProduto, precoProduto, quantidadeProduto, departamentoProduto);
-
-
-            }
-
         }
         private void DataGridViewProdutos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
